@@ -1,0 +1,213 @@
+﻿@using System.Activities.Expressions
+@model MaxDev.Prode.Web.Models.UsuarioVm
+@{
+    ViewBag.Title = "Apuestas de " + Model.UserName;
+    var index = 0;
+}
+
+
+<div class="page-header text-center">
+    <h1>@Model.UserName</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p>
+            @if (User.Identity.Name == Model.UserName)
+            {
+                <a href="#" class="btn btn-success" data-submit>
+                    <span class="glyphicon glyphicon-ok-circle"></span> Guardar
+                </a>
+            }
+            <a href="@Url.Action("Detalle", "Torneo", new {torneoId = Model.TorneoId})"
+               class="btn btn-default">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Atras
+            </a>
+        </p>
+
+        @if (ViewBag.Exito == false)
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Error!</strong> Ocurri&oacute; un error.
+            </div>
+        }
+
+        <ul class="nav nav-tabs">
+            @for (var i = 0; i < Model.Grupos.Count; i++)
+            {
+                var grupo = Model.Grupos[i];
+                <li class="@(i == 0? "active" : string.Empty)"><a href="#grupo-@(i+1)" data-toggle="tab">@grupo</a></li>
+            }
+        </ul>
+
+        <form class="tab-content form-apuestas"
+              method="POST"
+              action="@Url.Action("Apuestas", "Usuario", new { username = Model.UserName, torneoId = Model.TorneoId })">
+            @for (var i = 0; i < Model.Grupos.Count; i++)
+            {
+                <div class="tab-pane @(i == 0 ? "active" : string.Empty)" id="grupo-@(i+1)">
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <th colspan="8" class="text-center">@Model.Grupos[i]</th>
+                            </tr>
+                            <tr>
+                                <th class="hide"></th>
+                                <th class="col-md-2 text-center">Fecha</th>
+                                <th class="col-md-3 text-center">Local</th>
+                                <th class="col-md-2 text-center" colspan="3">Goles</th>
+                                <th class="col-md-3 text-center">Visitante</th>
+                                <th class="col-md-1 text-center">Resultado</th>
+                                <th class="col-md-1 text-center">Ptos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in Model.Fixture.Where(f => f.Grupo == Model.Grupos[i]))
+                            {
+
+                                <tr class="@p.ClassGanador">
+                                    <td>@p.FechaReal.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        @if(!String.IsNullOrEmpty(p.EscudoVisitante))
+                                        {
+                                            <img src="@p.EscudoLocal" alt="Escudo @p.Local" />
+                                        }
+                                        <span class="hidden-xs text-wrap">@p.Local</span>
+                                    </td>
+                                    @if (User.Identity.Name != Model.UserName || p.PermiteApuesta == false)
+                                    {
+                                        <td class="text-center @p.ClassGolLocal">
+                                            @if (p.ApuestaLocal == true && !p.EvaluarLocal && !p.EvaluarVisitante)
+                                            {
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            }
+                                            else if (p.EvaluarLocal && p.EvaluarVisitante)
+                                            {
+                                                <strong>@p.ApuestaGolesLocal</strong>;
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            @if (p.ApuestaEmpate == true && !p.EvaluarLocal && !p.EvaluarVisitante)
+                                            {
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            }
+                                        </td>
+                                        <td class="text-center @p.ClassGolVisitante">
+                                            @if (p.ApuestaVisitante == true && !p.EvaluarLocal && !p.EvaluarVisitante)
+                                            {
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            }
+                                            else if (p.EvaluarLocal && p.EvaluarVisitante)
+                                            {
+                                                <strong>@p.ApuestaGolesVisitante</strong>;
+                                            }
+                                        </td>
+                                    }
+                                    else if(p.EvaluarGanador && !p.EvaluarLocal && !p.EvaluarVisitante)
+                                    {
+                                        <td class="hide">
+                                            <input type="hidden" name="UsuarioApuestas[@index].PartidoId" value="@p.PartidoId" />
+                                            <input type="hidden" name="UsuarioApuestas[@index].ApuestaId" value="@p.ApuestaId" />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="radio"
+                                                   name="UsuarioApuestas[@index].Resultado"
+                                                   value="1"
+                                                @(p.ApuestaLocal.GetValueOrDefault(false) ? "checked=\"checked\"" : string.Empty) />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="radio"
+                                                   name="UsuarioApuestas[@index].Resultado"
+                                                   value="0"
+                                                @(p.ApuestaEmpate.GetValueOrDefault(false) ? "checked=\"checked\"" : string.Empty) />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="radio"
+                                                   name="UsuarioApuestas[@index].Resultado"
+                                                   value="-1"
+                                                @(p.ApuestaVisitante.GetValueOrDefault(false) ? "checked=\"checked\"" : string.Empty) />
+                                        </td>
+                                        index++;
+                                    }
+                                    else if (p.EvaluarGanador && p.EvaluarLocal && p.EvaluarVisitante)
+                                    {
+                                        <td class="hide">
+                                            <input type="hidden" name="UsuarioApuestas[@index].PartidoId" value="@p.PartidoId" />
+                                            <input type="hidden" name="UsuarioApuestas[@index].ApuestaId" value="@p.ApuestaId" />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text"
+                                                   class="form-control text-center"
+                                                   name="UsuarioApuestas[@index].GolesLocal"
+                                                   value="@p.ApuestaGolesLocal" />
+                                        </td>
+                                        <td class="text-center">@p.Ganador</td>
+                                        <td class="text-center">
+                                            <input type="text"
+                                                   class="form-control text-center"
+                                                   name="UsuarioApuestas[@index].GolesVisitante"
+                                                   value="@p.ApuestaGolesVisitante" />
+                                        </td>
+                                        index++;
+                                    }
+                                    <td class="text-right">
+                                        <span class="hidden-xs text-wrap">@p.Visitante</span>
+
+                                        @if(!String.IsNullOrEmpty(p.EscudoVisitante))
+                                        {
+                                            <img src="@p.EscudoVisitante" alt="Escudo @p.Visitante" />
+                                        }
+                                    </td>
+                                    <td>@p.GolesLocal - @p.GolesVisitante</td>
+                                    <td>@p.Puntos</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </form>
+        <p>
+            @if (User.Identity.Name == Model.UserName)
+            {
+                <a href="#" class="btn btn-success" data-submit>
+                    <span class="glyphicon glyphicon-ok-circle"></span> Guardar
+                </a>
+            }
+            <a href="@Url.Action("Detalle", "Torneo", new { torneoId = Model.TorneoId })"
+               class="btn btn-default">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Atras
+            </a>
+        </p>
+    </div>
+    <div class="col-md-5 columna-fixture">
+        @{ Html.RenderAction("Fixture", "Torneo", new { torneoId = Model.TorneoId, grupo = "Grupo A"});}
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            var changeResult = function() {
+                var $this = $(this);
+                $this.closest('form').prev('.nav-tabs').find('.active').addClass('modified');
+            };
+
+            $('[data-submit]').on('click', function(e) {
+                e.preventDefault();
+                $('.form-apuestas').trigger('submit');
+            });
+
+            $('form').on('change', '[type=radio]', changeResult);
+
+            $('form').on('keyup', '[type=text]', changeResult);
+
+
+            app.fixture.init({
+                torneoId: @Model.TorneoId
+            });
+        });
+    </script>
+}

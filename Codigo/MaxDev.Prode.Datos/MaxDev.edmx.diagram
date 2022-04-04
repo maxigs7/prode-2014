@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="77f2f7707028415795d7b4891a37eff3" Name="Diagram1">
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Equipo" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Apuesta" Width="1.5" PointX="10.625" PointY="1.375" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Grupo" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Partido" Width="2.375" PointX="7.5" PointY="1" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.TipoApuesta" Width="2.125" PointX="4.625" PointY="5.125" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.TipoTorneo" Width="1.5" PointX="1.5" PointY="9.375" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Torneo" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.TorneoEquipo" Width="1.5" PointX="3" PointY="13.5" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.TorneoGrupo" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.TorneoGrupoEquipo" Width="1.5" PointX="5.25" PointY="1.375" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_Apuesta_Partido" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoEquipo_Equipo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoGrupo_Grupo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_Torneo_TipoTorneo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoEquipo_Torneo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoGrupo_Torneo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoEquipo" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoGrupo" />
+        <EntityTypeShape EntityType="MaxDev.ProdeModel.Usuario" Width="1.5" PointX="3" PointY="16.625" FillColor="192, 0, 0" />
+        <AssociationConnector Association="MaxDev.ProdeModel.TorneoUsuario" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_Partido_TipoApuesta" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_Partido_TorneoGrupoLocal" />
+        <AssociationConnector Association="MaxDev.ProdeModel.FK_Partido_TorneoGrupoVisitante" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

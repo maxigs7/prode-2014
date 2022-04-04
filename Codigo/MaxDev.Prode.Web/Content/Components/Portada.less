@@ -1,0 +1,45 @@
+﻿@import "..\Bootstrap\variables";
+
+@bg-item: lighten(@navbar-default-bg, 15%);
+@font-size-titulo: 2em;
+@font-size-subtitulo: @font-size-titulo - 0.5em;
+@bg-font:  rgba(0,0,0,0.4);
+@color-font: #fff;
+
+.portada {
+    margin-bottom: 10px;
+}
+
+.portada-item {
+    padding: 20px;
+    background-color: @bg-item;
+
+    .portada-titulo {
+        background-color: @bg-font;
+        color: @color-font;
+        display: inline-block;
+        font-size: @font-size-titulo;
+        font-weight: lighter;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .portada-subtitulo {
+        background-color: @bg-font;
+        color: @color-font;
+        display: inline-block;
+        font-size: @font-size-subtitulo;
+        font-weight: lighter;
+        margin: 20px 30px;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-height: @screen-sm) {
+    .portada-item {
+        .portada-subtitulo {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}

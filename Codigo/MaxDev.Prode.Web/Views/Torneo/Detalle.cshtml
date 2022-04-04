@@ -1,0 +1,54 @@
+﻿@model MaxDev.Prode.Web.Models.TorneoVm
+@{
+    ViewBag.Title = Model.TorneoActual;
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p>
+            <a href="@Url.Action("Apuestas", "Usuario", new { userName = User.Identity.Name, torneoId = Model.TorneoId })"
+               class="btn btn-primary">Cargar Resultados</a>
+        </p>
+        <ul class="nav nav-tabs">
+            @foreach (var numero in Model.Fechas)
+            {
+                <li class="@(numero == 1? "active":string.Empty)"><a href="#fecha-@numero" data-toggle="tab">Fecha @numero</a></li>
+            }    
+        </ul>
+        
+        <div class="tab-content">
+            @foreach (var numero in Model.Fechas)
+            {
+                <div class="tab-pane @(numero == 1? "active":string.Empty)" id="fecha-@numero">
+                    <div class="list-group">
+                        @foreach (var u in Model.UsuariosPuntaje.Where(up => up.FechaNumero == numero))
+                        {
+                            <a href="@Url.Action("Apuestas", "Usuario", new { userName = u.UserName, torneoId = u.TorneoId })"
+                               class="list-group-item @(u.UserName == User.Identity.Name? "active" : string.Empty)">
+                                @u.UserName <span class="badge">@u.Puntos</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-5 columna-fixture">
+        @{ Html.RenderAction("Fixture", "Torneo", new { torneoId = Model.TorneoId, grupo = "Grupo A" });}
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            app.fixture.init({
+                torneoId: @Model.TorneoId
+            });
+        });
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@model MaxDev.Prode.Web.Models.TorneoVm
+@{
+    ViewBag.Title = "Mis Torneos";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <h2>Mis Torneos</h2>
+        <div class="list-group">
+            @foreach (var t in Model.Torneos)
+            {
+                @Html.ActionLink(t.Nombre, "Detalle", "Torneo", new { torneoId = t.TorneoId }, new { @class = "list-group-item" })
+            }
+        </div>
+    </div>
+    <div class="col-md-5">
+        <h2>Aca va los ultimos usuarios que colocaron resultados</h2>
+    </div>
+    
+</div>

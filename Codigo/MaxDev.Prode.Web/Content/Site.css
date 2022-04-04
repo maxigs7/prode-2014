@@ -1,0 +1,64 @@
+﻿/*body {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.nav-tabs .modified a {
+    background-color: #5cb85c !important;
+    border: 1px solid #4cae4c !important;
+    color: #fff !important;
+}
+
+.nav-tabs .modified a:after {
+    content: "*"
+}
+
+.grupo-anterior {
+    float: left;
+}
+
+.grupo-siguiente {
+    float: right;
+}
+
+@media screen and (max-width: 530px) {
+    table .form-control {
+        padding: 0;
+        width: 20px;
+    }
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.bg-futbol {
+    background: url('/static/img/pattern-bg.png') repeat 0 0/ 100% auto;
+    height: 250px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.fifa-world-cup {
+    background-color: #4cae4c;
+}
+
+.fifa-world-cup h1 {
+    color: #204b20;
+    font-size: 3.5em;
+    line-height: 125px;
+
+}

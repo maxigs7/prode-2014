@@ -1,0 +1,30 @@
+﻿@model MaxDev.Prode.Entidades.Usuario
+@{
+    ViewBag.Title = Model.UserName;
+}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>@Model.UserName</h2>
+                <p><strong>Nombre:</strong> @Model.Nombre</p>
+                <p><strong>Apellido:</strong> @Model.Apellido</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <h2>Torneos</h2>
+        <div class="list-group">
+            @foreach (var t in Model.Torneos)
+            {
+                @Html.ActionLink(t.Nombre, "Apuestas", "Usuario", new { torneoId = t.TorneoId, userName = Model.UserName }, new { @class = "list-group-item" })
+            }
+        </div>
+    </div>
+</div>

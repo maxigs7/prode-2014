@@ -1,0 +1,48 @@
+﻿@using MaxDev.Prode.Negocio.Configuracion
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>@LayoutConfig.Titulo - Prode Mundial</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">
+        @Styles.Render("~/css")
+        @Scripts.Render("~/js/modernizr")
+    </head>
+    <body data-ng-app="prodeApp">
+        
+        <header id="hd">
+            @{Html.RenderAction("Navbar", "Layout");}
+        </header>
+        
+        @RenderBody()
+        <hr />
+        @{Html.RenderAction("Footer", "Layout");}
+
+        @Scripts.Render("~/js")
+
+        <script>
+            $(function () {
+                $('form').attr('autocomplete', 'off');
+            })
+        </script>
+
+        @RenderSection("scripts", required: false)
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        @*<script>
+            (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+                    function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+                e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+                e.src = '//www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+            }(window, document, 'script', 'ga'));
+            ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
+        </script>*@
+    </body>
+</html>

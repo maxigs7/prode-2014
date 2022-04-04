@@ -1,0 +1,49 @@
+﻿@model List<MaxDev.Prode.Entidades.EstadisticasEquipoCompleto>
+@{
+    var primero = Model.FirstOrDefault();
+}
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th class="text-center" colspan="9">
+                <a href="#" class="grupo-anterior">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                @(primero != null? primero.Grupo:string.Empty)
+                <a href="#" class="grupo-siguiente">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </th>
+        </tr>
+        <tr>
+            <th>Equipos</th>
+            <th>PJ</th>
+            <th>PG</th>
+            <th>PE</th>
+            <th>PP</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>Dif.</th>
+            <th>Ptos.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eec in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@eec.Escudo" alt="Escudo @eec.Equipo" /> @eec.Equipo
+                </td>
+                <td>@eec.PartidosJugados</td>
+                <td>@eec.PartidosGanados</td>
+                <td>@eec.PartidosEmpatados</td>
+                <td>@eec.PartidosPerdidos</td>
+                <td>@eec.GolesFavor</td>
+                <td>@eec.GolesContra</td>
+                <td>@(eec.GolesFavor - eec.GolesContra)</td>
+                <td><strong>@eec.Puntos</strong></td>
+            </tr>
+        }
+    </tbody>
+    
+</table>

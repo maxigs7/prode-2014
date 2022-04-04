@@ -1,0 +1,1165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MaxDev.ProdeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Apuesta">
+          <Key>
+            <PropertyRef Name="ApuestaId" />
+          </Key>
+          <Property Name="ApuestaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartidoId" Type="int" Nullable="false" />
+          <Property Name="GolesLocal" Type="tinyint" Nullable="false" />
+          <Property Name="GolesVisitante" Type="tinyint" Nullable="false" />
+          <Property Name="UsuarioId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FechaApuesta" Type="datetime" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="EquipoId" />
+          </Key>
+          <Property Name="EquipoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="5" />
+          <Property Name="UrlEscudo" Type="varchar" MaxLength="500" />
+          <Property Name="EsSeleccion" Type="bit" />
+        </EntityType>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="GrupoId" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partido">
+          <Key>
+            <PropertyRef Name="PartidoId" />
+          </Key>
+          <Property Name="PartidoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaNumero" Type="int" Nullable="false" />
+          <Property Name="FechaReal" Type="datetime" Nullable="false" />
+          <Property Name="GolesLocal" Type="int" />
+          <Property Name="GolesVisitante" Type="int" />
+          <Property Name="TipoApuestaId" Type="tinyint" Nullable="false" />
+          <Property Name="TorneoGrupoEquipoLocalId" Type="int" Nullable="false" />
+          <Property Name="TorneoGrupoEquipoVisitanteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoApuesta">
+          <Key>
+            <PropertyRef Name="TipoApuestaId" />
+          </Key>
+          <Property Name="TipoApuestaId" Type="tinyint" Nullable="false" />
+          <Property Name="ApuestaGolesLocal" Type="bit" Nullable="false" />
+          <Property Name="ApuestaGolesVisitante" Type="bit" Nullable="false" />
+          <Property Name="ApuestaGanador" Type="bit" Nullable="false" />
+          <Property Name="PuntosGolesLocal" Type="tinyint" Nullable="false" />
+          <Property Name="PuntosGolesVisitante" Type="tinyint" />
+          <Property Name="PuntosGanador" Type="tinyint" Nullable="false" />
+          <Property Name="PuntosBonus" Type="tinyint" Nullable="false" />
+          <Property Name="TiempoLimite" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoTorneo">
+          <Key>
+            <PropertyRef Name="TipoTorneoId" />
+          </Key>
+          <Property Name="TipoTorneoId" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TieneGrupos" Type="bit" Nullable="false" />
+          <Property Name="PartidoUnicoPorGrupo" Type="bit" Nullable="false" />
+          <Property Name="PartidoUnicoRonda" Type="bit" Nullable="false" />
+          <Property Name="CantidadEquipos" Type="tinyint" Nullable="false" />
+          <Property Name="CantidadGrupos" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Torneo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+          </Key>
+          <Property Name="TorneoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TipoTorneoId" Type="smallint" Nullable="false" />
+          <Property Name="UrlAmigable" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaFin" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorneoEquipo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+            <PropertyRef Name="EquipoId" />
+          </Key>
+          <Property Name="TorneoId" Type="int" Nullable="false" />
+          <Property Name="EquipoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorneoGrupo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="TorneoId" Type="int" Nullable="false" />
+          <Property Name="GrupoId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorneoGrupoEquipo">
+          <Key>
+            <PropertyRef Name="TorneoGrupoEquipoId" />
+          </Key>
+          <Property Name="TorneoGrupoEquipoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TorneoId" Type="int" Nullable="false" />
+          <Property Name="GrupoId" Type="smallint" Nullable="false" />
+          <Property Name="EquipoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorneoUsuario">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="TorneoId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Apellido" Type="nvarchar(max)" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Apuesta_Partido">
+          <End Role="Partido" Type="Self.Partido" Multiplicity="1" />
+          <End Role="Apuesta" Type="Self.Apuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partido">
+              <PropertyRef Name="PartidoId" />
+            </Principal>
+            <Dependent Role="Apuesta">
+              <PropertyRef Name="PartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partido_TipoApuesta">
+          <End Role="TipoApuesta" Type="Self.TipoApuesta" Multiplicity="1" />
+          <End Role="Partido" Type="Self.Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoApuesta">
+              <PropertyRef Name="TipoApuestaId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TipoApuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partido_TorneoGrupoLocal">
+          <End Role="TorneoGrupoEquipo" Type="Self.TorneoGrupoEquipo" Multiplicity="1" />
+          <End Role="Partido" Type="Self.Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoGrupoEquipoId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TorneoGrupoEquipoLocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partido_TorneoGrupoVisitante">
+          <End Role="TorneoGrupoEquipo" Type="Self.TorneoGrupoEquipo" Multiplicity="1" />
+          <End Role="Partido" Type="Self.Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoGrupoEquipoId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TorneoGrupoEquipoVisitanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torneo_TipoTorneo">
+          <End Role="TipoTorneo" Type="Self.TipoTorneo" Multiplicity="1" />
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTorneo">
+              <PropertyRef Name="TipoTorneoId" />
+            </Principal>
+            <Dependent Role="Torneo">
+              <PropertyRef Name="TipoTorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoEquipo_Equipo">
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+          <End Role="TorneoEquipo" Type="Self.TorneoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="EquipoId" />
+            </Principal>
+            <Dependent Role="TorneoEquipo">
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoEquipo_Torneo">
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="1" />
+          <End Role="TorneoEquipo" Type="Self.TorneoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="TorneoId" />
+            </Principal>
+            <Dependent Role="TorneoEquipo">
+              <PropertyRef Name="TorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupo_Grupo">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+          <End Role="TorneoGrupo" Type="Self.TorneoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupo">
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupo_Torneo">
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="1" />
+          <End Role="TorneoGrupo" Type="Self.TorneoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="TorneoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupo">
+              <PropertyRef Name="TorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupoEquipo_TorneoEquipo">
+          <End Role="TorneoEquipo" Type="Self.TorneoEquipo" Multiplicity="1" />
+          <End Role="TorneoGrupoEquipo" Type="Self.TorneoGrupoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="EquipoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupoEquipo_TorneoGrupo">
+          <End Role="TorneoGrupo" Type="Self.TorneoGrupo" Multiplicity="1" />
+          <End Role="TorneoGrupoEquipo" Type="Self.TorneoGrupoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoUsuario_Torneo">
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="1" />
+          <End Role="TorneoUsuario" Type="Self.TorneoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="TorneoId" />
+            </Principal>
+            <Dependent Role="TorneoUsuario">
+              <PropertyRef Name="TorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="TorneoUsuario" Type="Self.TorneoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TorneoUsuario">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ApuestaFixture_Torneo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="TorneoId" Type="int" Mode="In" />
+          <Parameter Name="TorneoNombre" Type="varchar" Mode="In" />
+          <Parameter Name="GrupoId" Type="int" Mode="In" />
+          <Parameter Name="GrupoNombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNumero" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EstadisticasEquipo_Torneo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TorneoId" Type="int" Mode="In" />
+          <Parameter Name="TorneoNombre" Type="varchar" Mode="In" />
+          <Parameter Name="GrupoId" Type="smallint" Mode="In" />
+          <Parameter Name="GrupoNombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="FixtureGrupo_Torneo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TorneoId" Type="int" Mode="In" />
+          <Parameter Name="TorneoNombre" Type="varchar" Mode="In" />
+          <Parameter Name="GrupoId" Type="int" Mode="In" />
+          <Parameter Name="GrupoNombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNumero" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Torneo_Buscar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PalabraBuscar" Type="varchar" Mode="In" />
+          <Parameter Name="TorneoId" Type="int" Mode="In" />
+          <Parameter Name="UrlAmigable" Type="varchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuariosPuntajeFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TorneoId" Type="int" Mode="In" />
+          <Parameter Name="FechaNumero" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="TorneoId" Type="int" Nullable="false" />
+                <Property Name="Torneo" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="UserName" Type="nvarchar(max)" />
+                <Property Name="FechaNumero" Type="int" Nullable="false" />
+                <Property Name="Puntos" Type="int" Nullable="false" />
+                <Property Name="Orden" Type="bigint" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="MaxDevProdeModelStoreContainer">
+          <EntitySet Name="Apuesta" EntityType="Self.Apuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipo" EntityType="Self.Equipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partido" EntityType="Self.Partido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoApuesta" EntityType="Self.TipoApuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTorneo" EntityType="Self.TipoTorneo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Torneo" EntityType="Self.Torneo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorneoEquipo" EntityType="Self.TorneoEquipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorneoGrupo" EntityType="Self.TorneoGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorneoGrupoEquipo" EntityType="Self.TorneoGrupoEquipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorneoUsuario" EntityType="Self.TorneoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="membresia" store:Type="Tables" />
+          <AssociationSet Name="FK_Apuesta_Partido" Association="Self.FK_Apuesta_Partido">
+            <End Role="Partido" EntitySet="Partido" />
+            <End Role="Apuesta" EntitySet="Apuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partido_TipoApuesta" Association="Self.FK_Partido_TipoApuesta">
+            <End Role="TipoApuesta" EntitySet="TipoApuesta" />
+            <End Role="Partido" EntitySet="Partido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partido_TorneoGrupoLocal" Association="Self.FK_Partido_TorneoGrupoLocal">
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipo" />
+            <End Role="Partido" EntitySet="Partido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partido_TorneoGrupoVisitante" Association="Self.FK_Partido_TorneoGrupoVisitante">
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipo" />
+            <End Role="Partido" EntitySet="Partido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torneo_TipoTorneo" Association="Self.FK_Torneo_TipoTorneo">
+            <End Role="TipoTorneo" EntitySet="TipoTorneo" />
+            <End Role="Torneo" EntitySet="Torneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoEquipo_Equipo" Association="Self.FK_TorneoEquipo_Equipo">
+            <End Role="Equipo" EntitySet="Equipo" />
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoEquipo_Torneo" Association="Self.FK_TorneoEquipo_Torneo">
+            <End Role="Torneo" EntitySet="Torneo" />
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupo_Grupo" Association="Self.FK_TorneoGrupo_Grupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupo_Torneo" Association="Self.FK_TorneoGrupo_Torneo">
+            <End Role="Torneo" EntitySet="Torneo" />
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupoEquipo_TorneoEquipo" Association="Self.FK_TorneoGrupoEquipo_TorneoEquipo">
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipo" />
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupoEquipo_TorneoGrupo" Association="Self.FK_TorneoGrupoEquipo_TorneoGrupo">
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupo" />
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoUsuario_Torneo" Association="Self.FK_TorneoUsuario_Torneo">
+            <End Role="Torneo" EntitySet="Torneo" />
+            <End Role="TorneoUsuario" EntitySet="TorneoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoUsuario_Usuario" Association="Self.FK_TorneoUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="TorneoUsuario" EntitySet="TorneoUsuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MaxDev.ProdeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="EquipoId" />
+          </Key>
+          <Property Name="EquipoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UrlEscudo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EsSeleccion" Type="Boolean" />
+          <NavigationProperty Name="TorneosEquipo" Relationship="MaxDev.ProdeModel.FK_TorneoEquipo_Equipo" FromRole="Equipo" ToRole="TorneoEquipo" />
+        </EntityType>
+        <EntityContainer Name="ProdeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Equipos" EntityType="Self.Equipo" />
+          <EntitySet Name="Apuestas" EntityType="MaxDev.ProdeModel.Apuesta" />
+          <EntitySet Name="Grupos" EntityType="MaxDev.ProdeModel.Grupo" />
+          <EntitySet Name="Partidos" EntityType="MaxDev.ProdeModel.Partido" />
+          <EntitySet Name="TiposApuesta" EntityType="MaxDev.ProdeModel.TipoApuesta" />
+          <EntitySet Name="TiposTorneo" EntityType="MaxDev.ProdeModel.TipoTorneo" />
+          <EntitySet Name="Torneos" EntityType="MaxDev.ProdeModel.Torneo" />
+          <EntitySet Name="TorneoEquipos" EntityType="MaxDev.ProdeModel.TorneoEquipo" />
+          <EntitySet Name="TorneoGrupos" EntityType="MaxDev.ProdeModel.TorneoGrupo" />
+          <EntitySet Name="TorneoGrupoEquipos" EntityType="MaxDev.ProdeModel.TorneoGrupoEquipo" />
+          <AssociationSet Name="FK_Apuesta_Partido" Association="MaxDev.ProdeModel.FK_Apuesta_Partido">
+            <End Role="Partido" EntitySet="Partidos" />
+            <End Role="Apuesta" EntitySet="Apuestas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoEquipo_Equipo" Association="MaxDev.ProdeModel.FK_TorneoEquipo_Equipo">
+            <End Role="Equipo" EntitySet="Equipos" />
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupo_Grupo" Association="MaxDev.ProdeModel.FK_TorneoGrupo_Grupo">
+            <End Role="Grupo" EntitySet="Grupos" />
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torneo_TipoTorneo" Association="MaxDev.ProdeModel.FK_Torneo_TipoTorneo">
+            <End Role="TipoTorneo" EntitySet="TiposTorneo" />
+            <End Role="Torneo" EntitySet="Torneos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoEquipo_Torneo" Association="MaxDev.ProdeModel.FK_TorneoEquipo_Torneo">
+            <End Role="Torneo" EntitySet="Torneos" />
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupo_Torneo" Association="MaxDev.ProdeModel.FK_TorneoGrupo_Torneo">
+            <End Role="Torneo" EntitySet="Torneos" />
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupoEquipo_TorneoEquipo" Association="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoEquipo">
+            <End Role="TorneoEquipo" EntitySet="TorneoEquipos" />
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorneoGrupoEquipo_TorneoGrupo" Association="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoGrupo">
+            <End Role="TorneoGrupo" EntitySet="TorneoGrupos" />
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipos" />
+          </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="MaxDev.ProdeModel.Usuario" />
+          <AssociationSet Name="TorneoUsuario" Association="MaxDev.ProdeModel.TorneoUsuario">
+            <End Role="Torneo" EntitySet="Torneos" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partido_TipoApuesta" Association="MaxDev.ProdeModel.FK_Partido_TipoApuesta">
+            <End Role="TipoApuesta" EntitySet="TiposApuesta" />
+            <End Role="Partido" EntitySet="Partidos" />
+          </AssociationSet>
+          <FunctionImport Name="ApuestaFixtureTorneo" ReturnType="Collection(MaxDev.ProdeModel.ApuestaFixtureCompleto)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="TorneoId" Mode="In" Type="Int32" />
+            <Parameter Name="TorneoNombre" Mode="In" Type="String" />
+            <Parameter Name="GrupoId" Mode="In" Type="Int32" />
+            <Parameter Name="GrupoNombre" Mode="In" Type="String" />
+            <Parameter Name="FechaNumero" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EstadisticasEquipoTorneo" ReturnType="Collection(MaxDev.ProdeModel.EstadisticasEquipoCompleto)">
+            <Parameter Name="TorneoId" Mode="In" Type="Int32" />
+            <Parameter Name="TorneoNombre" Mode="In" Type="String" />
+            <Parameter Name="GrupoId" Mode="In" Type="Int16" />
+            <Parameter Name="GrupoNombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FixtureGrupoTorneo" ReturnType="Collection(MaxDev.ProdeModel.FixtureGrupoCompleto)">
+            <Parameter Name="TorneoId" Mode="In" Type="Int32" />
+            <Parameter Name="TorneoNombre" Mode="In" Type="String" />
+            <Parameter Name="GrupoId" Mode="In" Type="Int32" />
+            <Parameter Name="GrupoNombre" Mode="In" Type="String" />
+            <Parameter Name="FechaNumero" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuariosPuntajeFecha" IsComposable="true" ReturnType="Collection(MaxDev.ProdeModel.UsuariosPuntajeTorneo)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="TorneoId" Mode="In" Type="Int32" />
+            <Parameter Name="FechaNumero" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_Partido_TorneoGrupoLocal" Association="MaxDev.ProdeModel.FK_Partido_TorneoGrupoLocal">
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipos" />
+            <End Role="Partido" EntitySet="Partidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partido_TorneoGrupoVisitante" Association="MaxDev.ProdeModel.FK_Partido_TorneoGrupoVisitante">
+            <End Role="TorneoGrupoEquipo" EntitySet="TorneoGrupoEquipos" />
+            <End Role="Partido" EntitySet="Partidos" />
+          </AssociationSet>
+          <FunctionImport Name="TorneoBuscar" ReturnType="Collection(MaxDev.ProdeModel.TorneoCompleto)">
+            <Parameter Name="PalabraBuscar" Mode="In" Type="String" />
+            <Parameter Name="TorneoId" Mode="In" Type="Int32" />
+            <Parameter Name="UrlAmigable" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Apuesta">
+          <Key>
+            <PropertyRef Name="ApuestaId" />
+          </Key>
+          <Property Name="ApuestaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartidoId" Type="Int32" Nullable="false" />
+          <Property Name="GolesLocal" Type="Byte" Nullable="false" />
+          <Property Name="GolesVisitante" Type="Byte" Nullable="false" />
+          <Property Name="UsuarioId" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="FechaApuesta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Partido" Relationship="MaxDev.ProdeModel.FK_Apuesta_Partido" FromRole="Apuesta" ToRole="Partido" />
+        </EntityType>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="GrupoId" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TorneosGrupo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupo_Grupo" FromRole="Grupo" ToRole="TorneoGrupo" />
+        </EntityType>
+        <EntityType Name="Partido">
+          <Key>
+            <PropertyRef Name="PartidoId" />
+          </Key>
+          <Property Name="PartidoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaNumero" Type="Int32" Nullable="false" />
+          <Property Name="FechaReal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GolesLocal" Type="Int32" />
+          <Property Name="GolesVisitante" Type="Int32" />
+          <NavigationProperty Name="Apuestas" Relationship="MaxDev.ProdeModel.FK_Apuesta_Partido" FromRole="Partido" ToRole="Apuesta" />
+          <Property Name="TipoApuestaId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="TipoApuesta" Relationship="MaxDev.ProdeModel.FK_Partido_TipoApuesta" FromRole="Partido" ToRole="TipoApuesta" />
+          <Property Name="TorneoGrupoEquipoLocalId" Type="Int32" Nullable="false" />
+          <Property Name="TorneoGrupoEquipoVisitanteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TorneoGrupoLocal" Relationship="MaxDev.ProdeModel.FK_Partido_TorneoGrupoLocal" FromRole="Partido" ToRole="TorneoGrupoEquipo" />
+          <NavigationProperty Name="TorneoGrupoVisitante" Relationship="MaxDev.ProdeModel.FK_Partido_TorneoGrupoVisitante" FromRole="Partido" ToRole="TorneoGrupoEquipo" />
+        </EntityType>
+        <EntityType Name="TipoApuesta">
+          <Key>
+            <PropertyRef Name="TipoApuestaId" />
+          </Key>
+          <Property Name="TipoApuestaId" Type="Byte" Nullable="false" />
+          <Property Name="ApuestaGanador" Type="Boolean" Nullable="false" />
+          <Property Name="PuntosGanador" Type="Byte" Nullable="false" />
+          <Property Name="ApuestaGolesLocal" Type="Boolean" Nullable="false" />
+          <Property Name="ApuestaGolesVisitante" Type="Boolean" Nullable="false" />
+          <Property Name="PuntosGolesLocal" Type="Byte" Nullable="false" />
+          <Property Name="PuntosGolesVisitante" Type="Byte" />
+          <Property Name="PuntosBonus" Type="Byte" Nullable="false" />
+          <Property Name="TiempoLimite" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Partidos" Relationship="MaxDev.ProdeModel.FK_Partido_TipoApuesta" FromRole="TipoApuesta" ToRole="Partido" />
+        </EntityType>
+        <EntityType Name="TipoTorneo">
+          <Key>
+            <PropertyRef Name="TipoTorneoId" />
+          </Key>
+          <Property Name="TipoTorneoId" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TieneGrupos" Type="Boolean" Nullable="false" />
+          <Property Name="PartidoUnicoPorGrupo" Type="Boolean" Nullable="false" />
+          <Property Name="PartidoUnicoRonda" Type="Boolean" Nullable="false" />
+          <Property Name="CantidadEquipos" Type="Byte" Nullable="false" />
+          <Property Name="CantidadGrupos" Type="Byte" />
+          <NavigationProperty Name="Torneos" Relationship="MaxDev.ProdeModel.FK_Torneo_TipoTorneo" FromRole="TipoTorneo" ToRole="Torneo" />
+        </EntityType>
+        <EntityType Name="Torneo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+          </Key>
+          <Property Name="TorneoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoTorneoId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="TipoTorneo" Relationship="MaxDev.ProdeModel.FK_Torneo_TipoTorneo" FromRole="Torneo" ToRole="TipoTorneo" />
+          <NavigationProperty Name="TorneoEquipos" Relationship="MaxDev.ProdeModel.FK_TorneoEquipo_Torneo" FromRole="Torneo" ToRole="TorneoEquipo" />
+          <NavigationProperty Name="TorneoGrupos" Relationship="MaxDev.ProdeModel.FK_TorneoGrupo_Torneo" FromRole="Torneo" ToRole="TorneoGrupo" />
+          <NavigationProperty Name="Usuarios" Relationship="MaxDev.ProdeModel.TorneoUsuario" FromRole="Torneo" ToRole="Usuario" />
+          <Property Name="UrlAmigable" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TorneoEquipo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+            <PropertyRef Name="EquipoId" />
+          </Key>
+          <Property Name="TorneoId" Type="Int32" Nullable="false" />
+          <Property Name="EquipoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipo" Relationship="MaxDev.ProdeModel.FK_TorneoEquipo_Equipo" FromRole="TorneoEquipo" ToRole="Equipo" />
+          <NavigationProperty Name="Torneo" Relationship="MaxDev.ProdeModel.FK_TorneoEquipo_Torneo" FromRole="TorneoEquipo" ToRole="Torneo" />
+          <NavigationProperty Name="TorneoGrupoEquipo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoEquipo" FromRole="TorneoEquipo" ToRole="TorneoGrupoEquipo" />
+        </EntityType>
+        <EntityType Name="TorneoGrupo">
+          <Key>
+            <PropertyRef Name="TorneoId" />
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="TorneoId" Type="Int32" Nullable="false" />
+          <Property Name="GrupoId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Grupo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupo_Grupo" FromRole="TorneoGrupo" ToRole="Grupo" />
+          <NavigationProperty Name="Torneo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupo_Torneo" FromRole="TorneoGrupo" ToRole="Torneo" />
+          <NavigationProperty Name="TorneoGrupoEquipo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoGrupo" FromRole="TorneoGrupo" ToRole="TorneoGrupoEquipo" />
+        </EntityType>
+        <EntityType Name="TorneoGrupoEquipo">
+          <Key>
+            <PropertyRef Name="TorneoGrupoEquipoId" />
+          </Key>
+          <Property Name="TorneoId" Nullable="false" Type="Int32" />
+          <Property Name="GrupoId" Type="Int16" Nullable="false" />
+          <Property Name="EquipoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TorneoEquipo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoEquipo" FromRole="TorneoGrupoEquipo" ToRole="TorneoEquipo" />
+          <NavigationProperty Name="TorneoGrupo" Relationship="MaxDev.ProdeModel.FK_TorneoGrupoEquipo_TorneoGrupo" FromRole="TorneoGrupoEquipo" ToRole="TorneoGrupo" />
+          <Property Name="TorneoGrupoEquipoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PartidosLocal" Relationship="MaxDev.ProdeModel.FK_Partido_TorneoGrupoLocal" FromRole="TorneoGrupoEquipo" ToRole="Partido" />
+          <NavigationProperty Name="PartidosVisitante" Relationship="MaxDev.ProdeModel.FK_Partido_TorneoGrupoVisitante" FromRole="TorneoGrupoEquipo" ToRole="Partido" />
+        </EntityType>
+        <Association Name="FK_Apuesta_Partido">
+          <End Type="MaxDev.ProdeModel.Partido" Role="Partido" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.Apuesta" Role="Apuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partido">
+              <PropertyRef Name="PartidoId" />
+            </Principal>
+            <Dependent Role="Apuesta">
+              <PropertyRef Name="PartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoEquipo_Equipo">
+          <End Type="MaxDev.ProdeModel.Equipo" Role="Equipo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoEquipo" Role="TorneoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="EquipoId" />
+            </Principal>
+            <Dependent Role="TorneoEquipo">
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupo_Grupo">
+          <End Type="MaxDev.ProdeModel.Grupo" Role="Grupo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoGrupo" Role="TorneoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupo">
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torneo_TipoTorneo">
+          <End Type="MaxDev.ProdeModel.TipoTorneo" Role="TipoTorneo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.Torneo" Role="Torneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTorneo">
+              <PropertyRef Name="TipoTorneoId" />
+            </Principal>
+            <Dependent Role="Torneo">
+              <PropertyRef Name="TipoTorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoEquipo_Torneo">
+          <End Type="MaxDev.ProdeModel.Torneo" Role="Torneo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoEquipo" Role="TorneoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="TorneoId" />
+            </Principal>
+            <Dependent Role="TorneoEquipo">
+              <PropertyRef Name="TorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupo_Torneo">
+          <End Type="MaxDev.ProdeModel.Torneo" Role="Torneo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoGrupo" Role="TorneoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="TorneoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupo">
+              <PropertyRef Name="TorneoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupoEquipo_TorneoEquipo">
+          <End Type="MaxDev.ProdeModel.TorneoEquipo" Role="TorneoEquipo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoGrupoEquipo" Role="TorneoGrupoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="EquipoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorneoGrupoEquipo_TorneoGrupo">
+          <End Type="MaxDev.ProdeModel.TorneoGrupo" Role="TorneoGrupo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.TorneoGrupoEquipo" Role="TorneoGrupoEquipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoId" />
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Torneos" Relationship="MaxDev.ProdeModel.TorneoUsuario" FromRole="Usuario" ToRole="Torneo" />
+        </EntityType>
+        <Association Name="TorneoUsuario">
+          <End Type="MaxDev.ProdeModel.Torneo" Role="Torneo" Multiplicity="*" />
+          <End Type="MaxDev.ProdeModel.Usuario" Role="Usuario" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Partido_TipoApuesta">
+          <End Type="MaxDev.ProdeModel.TipoApuesta" Role="TipoApuesta" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.Partido" Role="Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoApuesta">
+              <PropertyRef Name="TipoApuestaId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TipoApuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ApuestaFixtureCompleto">
+          <Property Type="Int32" Name="ApuestaId" Nullable="true" />
+          <Property Type="DateTime" Name="FechaApuesta" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="TorneoId" Nullable="false" />
+          <Property Type="Int32" Name="PartidoId" Nullable="false" />
+          <Property Type="Int16" Name="GrupoId" Nullable="false" />
+          <Property Type="String" Name="Grupo" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="FechaNumero" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReal" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Local" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="Visitante" Nullable="false" MaxLength="80" />
+          <Property Type="Int32" Name="GolesLocal" Nullable="true" />
+          <Property Type="Int32" Name="GolesVisitante" Nullable="true" />
+          <Property Type="Boolean" Name="PermiteApuesta" Nullable="true" />
+          <Property Type="Boolean" Name="EvaluarGanador" Nullable="false" />
+          <Property Type="Boolean" Name="EvaluarLocal" Nullable="false" />
+          <Property Type="Boolean" Name="EvaluarVisitante" Nullable="false" />
+          <Property Type="Boolean" Name="AcertoGanador" Nullable="true" />
+          <Property Type="Boolean" Name="AcertoLocal" Nullable="true" />
+          <Property Type="Boolean" Name="AcertoVisitante" Nullable="true" />
+          <Property Type="Int32" Name="Puntos" Nullable="true" />
+          <Property Type="Boolean" Name="ApuestaLocal" Nullable="true" />
+          <Property Type="Boolean" Name="ApuestaVisitante" Nullable="true" />
+          <Property Type="Boolean" Name="ApuestaEmpate" Nullable="true" />
+          <Property Type="Byte" Name="ApuestaGolesLocal" Nullable="true" />
+          <Property Type="Byte" Name="ApuestaGolesVisitante" Nullable="true" />
+          <Property Type="Int64" Name="Orden" Nullable="true" />
+          <Property Type="String" Name="EscudoLocal" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="EscudoVisitante" Nullable="true" MaxLength="500" />
+          </ComplexType>
+        <ComplexType Name="EstadisticasEquipoCompleto">
+          <Property Type="Int64" Name="Posicion" Nullable="true" />
+          <Property Type="Int32" Name="TorneoId" Nullable="false" />
+          <Property Type="Int16" Name="GrupoId" Nullable="false" />
+          <Property Type="String" Name="Grupo" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="EquipoId" Nullable="false" />
+          <Property Type="String" Name="Equipo" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="Abreviatura" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="PartidosJugados" Nullable="true" />
+          <Property Type="Int32" Name="PartidosGanados" Nullable="true" />
+          <Property Type="Int32" Name="PartidosEmpatados" Nullable="true" />
+          <Property Type="Int32" Name="PartidosPerdidos" Nullable="true" />
+          <Property Type="Int32" Name="GolesFavor" Nullable="true" />
+          <Property Type="Int32" Name="GolesContra" Nullable="true" />
+          <Property Type="Int32" Name="Puntos" Nullable="true" />
+          <Property Type="Int32" Name="TorneoGrupoEquipoId" Nullable="false" />
+          <Property Type="String" Name="Escudo" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="FixtureGrupoCompleto">
+          <Property Type="Int32" Name="TorneoId" Nullable="false" />
+          <Property Type="String" Name="Torneo" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="PartidoId" Nullable="false" />
+          <Property Type="Int16" Name="GrupoId" Nullable="false" />
+          <Property Type="String" Name="Grupo" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="FechaNumero" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReal" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Local" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="Visitante" Nullable="false" MaxLength="80" />
+          <Property Type="Int32" Name="GolesLocal" Nullable="true" />
+          <Property Type="Int32" Name="GolesVisitante" Nullable="true" />
+          <Property Type="Boolean" Name="PermiteApuesta" Nullable="true" />
+          <Property Type="Boolean" Name="EvaluarGanador" Nullable="false" />
+          <Property Type="Boolean" Name="EvaluarLocal" Nullable="false" />
+          <Property Type="Boolean" Name="EvaluarVisitante" Nullable="false" />
+          <Property Type="Byte" Name="PuntosGanador" Nullable="false" />
+          <Property Type="Byte" Name="PuntosLocal" Nullable="false" />
+          <Property Type="Byte" Name="PuntosVisitante" Nullable="true" />
+          <Property Type="Int32" Name="TiempoLimite" Nullable="false" />
+          <Property Type="Int64" Name="Fila" Nullable="true" />
+          <Property Type="String" Name="EscudoLocal" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="EscudoVisitante" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="UsuariosPuntajeTorneo">
+          <Property Type="Int32" Name="TorneoId" Nullable="false" />
+          <Property Type="String" Name="Torneo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="true" />
+          <Property Type="Int32" Name="FechaNumero" Nullable="false" />
+          <Property Type="Int32" Name="Puntos" Nullable="false" />
+          <Property Type="Int64" Name="Orden" Nullable="true" />
+        </ComplexType>
+        <Association Name="FK_Partido_TorneoGrupoLocal">
+          <End Type="MaxDev.ProdeModel.TorneoGrupoEquipo" Role="TorneoGrupoEquipo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.Partido" Role="Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoGrupoEquipoId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TorneoGrupoEquipoLocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partido_TorneoGrupoVisitante">
+          <End Type="MaxDev.ProdeModel.TorneoGrupoEquipo" Role="TorneoGrupoEquipo" Multiplicity="1" />
+          <End Type="MaxDev.ProdeModel.Partido" Role="Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorneoGrupoEquipo">
+              <PropertyRef Name="TorneoGrupoEquipoId" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="TorneoGrupoEquipoVisitanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="TorneoCompleto">
+          <Property Type="Int32" Name="TorneoId" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="Activo" Nullable="true" />
+          <Property Type="Int32" Name="TotalFilas" Nullable="true" />
+          <Property Type="Int64" Name="Fila" Nullable="true" />
+          <Property Type="String" Name="UrlAmigable" Nullable="false" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MaxDevProdeModelStoreContainer" CdmEntityContainer="ProdeEntities">
+          <EntitySetMapping Name="Equipos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Equipo">
+              <MappingFragment StoreEntitySet="Equipo">
+                <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="UrlEscudo" ColumnName="UrlEscudo" />
+                <ScalarProperty Name="EsSeleccion" ColumnName="EsSeleccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apuestas">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Apuesta">
+              <MappingFragment StoreEntitySet="Apuesta">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaApuesta" ColumnName="FechaApuesta" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="GolesVisitante" ColumnName="GolesVisitante" />
+                <ScalarProperty Name="GolesLocal" ColumnName="GolesLocal" />
+                <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+                <ScalarProperty Name="ApuestaId" ColumnName="ApuestaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Grupo">
+              <MappingFragment StoreEntitySet="Grupo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partidos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Partido">
+              <MappingFragment StoreEntitySet="Partido">
+                <ScalarProperty Name="TorneoGrupoEquipoVisitanteId" ColumnName="TorneoGrupoEquipoVisitanteId" />
+                <ScalarProperty Name="TorneoGrupoEquipoLocalId" ColumnName="TorneoGrupoEquipoLocalId" />
+                <ScalarProperty Name="TipoApuestaId" ColumnName="TipoApuestaId" />
+                <ScalarProperty Name="GolesVisitante" ColumnName="GolesVisitante" />
+                <ScalarProperty Name="GolesLocal" ColumnName="GolesLocal" />
+                <ScalarProperty Name="FechaReal" ColumnName="FechaReal" />
+                <ScalarProperty Name="FechaNumero" ColumnName="FechaNumero" />
+                <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposApuesta">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.TipoApuesta">
+              <MappingFragment StoreEntitySet="TipoApuesta">
+                <ScalarProperty Name="TiempoLimite" ColumnName="TiempoLimite" />
+                <ScalarProperty Name="PuntosBonus" ColumnName="PuntosBonus" />
+                <ScalarProperty Name="PuntosGolesVisitante" ColumnName="PuntosGolesVisitante" />
+                <ScalarProperty Name="PuntosGolesLocal" ColumnName="PuntosGolesLocal" />
+                <ScalarProperty Name="ApuestaGolesVisitante" ColumnName="ApuestaGolesVisitante" />
+                <ScalarProperty Name="ApuestaGolesLocal" ColumnName="ApuestaGolesLocal" />
+                <ScalarProperty Name="PuntosGanador" ColumnName="PuntosGanador" />
+                <ScalarProperty Name="ApuestaGanador" ColumnName="ApuestaGanador" />
+                <ScalarProperty Name="TipoApuestaId" ColumnName="TipoApuestaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposTorneo">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.TipoTorneo">
+              <MappingFragment StoreEntitySet="TipoTorneo">
+                <ScalarProperty Name="CantidadGrupos" ColumnName="CantidadGrupos" />
+                <ScalarProperty Name="CantidadEquipos" ColumnName="CantidadEquipos" />
+                <ScalarProperty Name="PartidoUnicoRonda" ColumnName="PartidoUnicoRonda" />
+                <ScalarProperty Name="PartidoUnicoPorGrupo" ColumnName="PartidoUnicoPorGrupo" />
+                <ScalarProperty Name="TieneGrupos" ColumnName="TieneGrupos" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoTorneoId" ColumnName="TipoTorneoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Torneos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Torneo">
+              <MappingFragment StoreEntitySet="Torneo">
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="UrlAmigable" ColumnName="UrlAmigable" />
+                <ScalarProperty Name="TipoTorneoId" ColumnName="TipoTorneoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorneoEquipos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.TorneoEquipo">
+              <MappingFragment StoreEntitySet="TorneoEquipo">
+                <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorneoGrupos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.TorneoGrupo">
+              <MappingFragment StoreEntitySet="TorneoGrupo">
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorneoGrupoEquipos">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.TorneoGrupoEquipo">
+              <MappingFragment StoreEntitySet="TorneoGrupoEquipo">
+                <ScalarProperty Name="TorneoGrupoEquipoId" ColumnName="TorneoGrupoEquipoId" />
+                <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="MaxDev.ProdeModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TorneoUsuario" TypeName="MaxDev.ProdeModel.TorneoUsuario" StoreEntitySet="TorneoUsuario">
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="UserId" ColumnName="UsuarioId" />
+            </EndProperty>
+            <EndProperty Name="Torneo">
+              <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ApuestaFixtureTorneo" FunctionName="MaxDev.ProdeModel.Store.ApuestaFixture_Torneo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MaxDev.ProdeModel.ApuestaFixtureCompleto">
+                <ScalarProperty Name="ApuestaId" ColumnName="ApuestaId" />
+                <ScalarProperty Name="FechaApuesta" ColumnName="FechaApuesta" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+                <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="FechaNumero" ColumnName="FechaNumero" />
+                <ScalarProperty Name="FechaReal" ColumnName="FechaReal" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Visitante" ColumnName="Visitante" />
+                <ScalarProperty Name="GolesLocal" ColumnName="GolesLocal" />
+                <ScalarProperty Name="GolesVisitante" ColumnName="GolesVisitante" />
+                <ScalarProperty Name="PermiteApuesta" ColumnName="PermiteApuesta" />
+                <ScalarProperty Name="EvaluarGanador" ColumnName="EvaluarGanador" />
+                <ScalarProperty Name="EvaluarLocal" ColumnName="EvaluarLocal" />
+                <ScalarProperty Name="EvaluarVisitante" ColumnName="EvaluarVisitante" />
+                <ScalarProperty Name="AcertoGanador" ColumnName="AcertoGanador" />
+                <ScalarProperty Name="AcertoLocal" ColumnName="AcertoLocal" />
+                <ScalarProperty Name="AcertoVisitante" ColumnName="AcertoVisitante" />
+                <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+                <ScalarProperty Name="ApuestaLocal" ColumnName="ApuestaLocal" />
+                <ScalarProperty Name="ApuestaVisitante" ColumnName="ApuestaVisitante" />
+                <ScalarProperty Name="ApuestaEmpate" ColumnName="ApuestaEmpate" />
+                <ScalarProperty Name="ApuestaGolesLocal" ColumnName="ApuestaGolesLocal" />
+                <ScalarProperty Name="ApuestaGolesVisitante" ColumnName="ApuestaGolesVisitante" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="EscudoLocal" ColumnName="EscudoLocal" />
+                <ScalarProperty Name="EscudoVisitante" ColumnName="EscudoVisitante" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EstadisticasEquipoTorneo" FunctionName="MaxDev.ProdeModel.Store.EstadisticasEquipo_Torneo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MaxDev.ProdeModel.EstadisticasEquipoCompleto">
+                <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+                <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="PartidosJugados" ColumnName="PartidosJugados" />
+                <ScalarProperty Name="PartidosGanados" ColumnName="PartidosGanados" />
+                <ScalarProperty Name="PartidosEmpatados" ColumnName="PartidosEmpatados" />
+                <ScalarProperty Name="PartidosPerdidos" ColumnName="PartidosPerdidos" />
+                <ScalarProperty Name="GolesFavor" ColumnName="GolesFavor" />
+                <ScalarProperty Name="GolesContra" ColumnName="GolesContra" />
+                <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+                <ScalarProperty Name="TorneoGrupoEquipoId" ColumnName="TorneoGrupoEquipoId" />
+                <ScalarProperty Name="Escudo" ColumnName="Escudo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FixtureGrupoTorneo" FunctionName="MaxDev.ProdeModel.Store.FixtureGrupo_Torneo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MaxDev.ProdeModel.FixtureGrupoCompleto">
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+                <ScalarProperty Name="Torneo" ColumnName="Torneo" />
+                <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="FechaNumero" ColumnName="FechaNumero" />
+                <ScalarProperty Name="FechaReal" ColumnName="FechaReal" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Visitante" ColumnName="Visitante" />
+                <ScalarProperty Name="GolesLocal" ColumnName="GolesLocal" />
+                <ScalarProperty Name="GolesVisitante" ColumnName="GolesVisitante" />
+                <ScalarProperty Name="PermiteApuesta" ColumnName="PermiteApuesta" />
+                <ScalarProperty Name="EvaluarGanador" ColumnName="EvaluarGanador" />
+                <ScalarProperty Name="EvaluarLocal" ColumnName="EvaluarLocal" />
+                <ScalarProperty Name="EvaluarVisitante" ColumnName="EvaluarVisitante" />
+                <ScalarProperty Name="PuntosGanador" ColumnName="PuntosGanador" />
+                <ScalarProperty Name="PuntosLocal" ColumnName="PuntosLocal" />
+                <ScalarProperty Name="PuntosVisitante" ColumnName="PuntosVisitante" />
+                <ScalarProperty Name="TiempoLimite" ColumnName="TiempoLimite" />
+                <ScalarProperty Name="Fila" ColumnName="Fila" />
+                <ScalarProperty Name="EscudoLocal" ColumnName="EscudoLocal" />
+                <ScalarProperty Name="EscudoVisitante" ColumnName="EscudoVisitante" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuariosPuntajeFecha" FunctionName="MaxDev.ProdeModel.Store.UsuariosPuntajeFecha">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MaxDev.ProdeModel.UsuariosPuntajeTorneo">
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+                <ScalarProperty Name="Torneo" ColumnName="Torneo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FechaNumero" ColumnName="FechaNumero" />
+                <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TorneoBuscar" FunctionName="MaxDev.ProdeModel.Store.Torneo_Buscar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MaxDev.ProdeModel.TorneoCompleto">
+                <ScalarProperty Name="TorneoId" ColumnName="TorneoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="TotalFilas" ColumnName="TotalFilas" />
+                <ScalarProperty Name="Fila" ColumnName="Fila" />
+                <ScalarProperty Name="UrlAmigable" ColumnName="UrlAmigable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

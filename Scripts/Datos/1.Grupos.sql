@@ -1,0 +1,8 @@
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(1,'Grupo A')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(2,'Grupo B')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(3,'Grupo C')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(4,'Grupo D')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(5,'Grupo E')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(6,'Grupo F')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(7,'Grupo G')
+INSERT INTO dbo.Grupo(GrupoId,Nombre) VALUES(8,'Grupo H')

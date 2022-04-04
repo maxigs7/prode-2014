@@ -1,0 +1,65 @@
+﻿@model bool
+@{
+    ViewBag.Title = "Reglas";
+}
+
+@if (Model)
+{
+    <h4>Reglas generales</h4>
+}
+else
+{
+    <h2>Reglas generales</h2>
+}
+<ul>
+    <li>Los ganadores son por fecha o ronda. Así todos tienen chances de ganar.</li>
+    <li>En caso de igualar en puntos, el premio se divide por la cantidad de ganadores</li>
+    <li>Una vez que se empiezan las apuestas(fecha 1) no se puede abandonar. La idéa es jugar todos durante todo el mundial.</li>
+</ul>
+<hr />
+
+@if (Model)
+{
+    <h4>Fase de Grupos</h4>
+}
+else
+{
+    <h2>Fase de Grupos</h2>
+}
+<ul>
+    <li>$10 por fecha. Una fecha hace referencia a los primeros partidos de todos los equipos, otra fecha seria los segundos y así sucesivamente</li>
+    <li>Fecha limite para votar: 1 hr antes del partido.</li>
+    <li>Solamente se selecciona el ganador o empate</li>
+    <li>
+        Puntos Fecha 3:
+        <ul>
+            <li>1 Punto por acertar quien gana o empata</li>
+            <li>1 Punto por acertar gol de un equipo.</li>
+            <li>1 Punto por acertar gol del otro equipo.</li>
+        </ul>
+    </li>
+</ul>
+<hr />
+
+@if (Model)
+{
+    <h4>Rondas Finales</h4>
+}
+else
+{
+    <h2>Rondas Finales</h2>
+}
+<ul>
+    <li>Octavos de final: $15</li>
+    <li>Cuartos de final: $20</li>
+    <li>Semifinal: $25</li>
+    <li>Final y 3er Puesto: $30</li>
+    <li>
+        Puntos:
+        <ul>
+            <li>1 Punto por acertar quien gana o empata</li>
+            <li>1 Punto por acertar gol de un equipo.</li>
+            <li>1 Punto por acertar gol del otro equipo.</li>
+        </ul>
+    </li>
+</ul>

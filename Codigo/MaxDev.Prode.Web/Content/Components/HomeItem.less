@@ -1,0 +1,29 @@
+﻿@import "..\Bootstrap\variables";
+
+@font-size-icon: 2.5em;
+@bg-icon: @navbar-default-bg;
+@color-icon: @navbar-default-color;
+
+.home-item {
+    background-color: #fff;
+    border-radius: 0 0 15px 15px;
+    border-top: 8px solid @bg-icon;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin: 5px 5px 10px;
+    padding: 10px;
+    text-align: center;
+
+    .home-item-i {
+        display: inline-block;
+        padding: 5px 10px;
+
+        .fa-stack-2x {
+            color: @bg-icon;
+        }
+
+        .fa-stack-1x {
+            color: @color-icon;
+        }
+    }
+
+}

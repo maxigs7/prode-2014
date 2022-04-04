@@ -1,0 +1,21 @@
+﻿@using MaxDev.Prode.Negocio.Configuracion
+@model MaxDev.Prode.Web.Models.ProdeVm
+@{
+    LayoutConfig.Titulo = "Torneos";
+}
+
+<div class="container" data-ng-controller="prodeApp.prode.controller">
+    <div class="panel panel-primary">
+        <div class="panel-heading bg-futbol">
+            <h3 class="panel-title">
+                <span class="fa fa-trophy"></span>&nbsp;
+                @LayoutConfig.Titulo
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="torneo-item col-lg-3 col-md-4 col-sm-6" data-ng-repeat="t in torneos">
+            <a href="{{t.url}}" data-ng-bind="t.nombre"></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿.home-item {
+  background-color: #fff;
+  border-radius: 0 0 15px 15px;
+  border-top: 8px solid #438ccc;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin: 5px 5px 10px;
+  padding: 10px;
+  text-align: center;
+}
+.home-item .home-item-i {
+  display: inline-block;
+  padding: 5px 10px;
+}
+.home-item .home-item-i .fa-stack-2x {
+  color: #438ccc;
+}
+.home-item .home-item-i .fa-stack-1x {
+  color: #ffffff;
+}

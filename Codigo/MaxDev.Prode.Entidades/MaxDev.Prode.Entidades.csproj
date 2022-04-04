@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0FAD261-5FAB-4ABD-AB1A-6C2AD1E788BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaxDev.Prode.Entidades</RootNamespace>
+    <AssemblyName>MaxDev.Prode.Entidades</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Apuesta.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApuestaFixtureCompleto.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EstadisticasEquipoCompleto.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\ApuestasFixtureCompleto.cs" />
+    <Compile Include="Filtros\FiltroBase.cs" />
+    <Compile Include="Filtros\TorneoFiltroModel.cs" />
+    <Compile Include="FixtureGrupoCompleto.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Grupo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaxDev.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApuestaModel.cs" />
+    <Compile Include="Partido.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoApuesta.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoTorneo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Torneo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorneoCompleto.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorneoEquipo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorneoGrupo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorneoGrupoEquipo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosPuntajeTorneo.cs">
+      <DependentUpon>MaxDev.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MaxDev.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MaxDev.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
